@@ -5,19 +5,20 @@ const router = express.Router();
 const userController = require('./controllers/userController');
 
 //Login and register forms
-router.get('/', userController.login);
+router.get('/', userController.home);
 
 // POST login
 router.post('/login', userController.login);
 // POST register
-router.post('/register', userController.create_user);
+router.post('/register', userController.register);
 
         // PROTECTED ROUTES //
 
 // GET user page
-router.get('/user/:id', userController.view_user);
+router.get('/user/:id', userController.user);
 // POST new blog post
-router.post('/user/:id/post', userController.create_post);
+router.post('/user/:id/post', userController.post);
 
 // GET
 
+module.exports = router

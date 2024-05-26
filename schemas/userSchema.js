@@ -7,3 +7,7 @@ const userSchema = new Schema({
     admin: { type: Boolean, required: true, },
     posts: { type: Array, }
 })
+
+module.exports = {
+    userSchema: userSchema
+}
