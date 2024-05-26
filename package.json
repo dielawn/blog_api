@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/dielawn/blog_api/issues"
   },
-  "homepage": "https://github.com/dielawn/blog_api#readme"
+  "homepage": "https://github.com/dielawn/blog_api#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.4.0",
+    "passport": "^0.7.0"
+  }
 }
