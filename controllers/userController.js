@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.home = (req, res) => {
-    res.json({ message: 'Welcome please login or register ' })
+    if (req.user) {
+        return res.status(200).json({ message: 'Valid token', user: req.user });
+    } else {
+        return res.status(200).json({ message: 'Welcome, please login or register' });
+    }
 }
 
 
@@ -49,8 +53,16 @@ exports.register = async (req, res) => {
         //create new user
         const newUser = new User({ username, password: hashedPassword, admin: admin, posts: [] });
         await newUser.save();
-        res.json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         res.status(500).json({ message: `Server error: ${error.message}`})
     }
 }
+
+exports.user = async (req, res) => {
+    if (req.user) {
+        res.status(200).json({ message: 'Welcome, you are already logged in', user: req.user });
+    } else {
+        res.status(401).json({ message: 'Unauthorized access, please login' });
+    }
+};
