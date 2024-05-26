@@ -1,6 +1,7 @@
 const User = require('../schemas/userSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 exports.home = (req, res) => {
     if (req.user) {
@@ -41,7 +42,7 @@ exports.login = async (req, res) => {
 
 // REGISTER NEW USER
 exports.register = async (req, res) => {
-    const [ username, password, admin ] = req.body;
+    const { username, password, admin } = req.body;
     try {
         // check for existing user
         const existingUser = await User.findOne({ username });
