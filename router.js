@@ -21,9 +21,15 @@ router.get('/user/:id', verifyToken, userController.user);
 
 
 // POST new blog post
-// router.post('/user/:id/post', verifyToken, blogController.post);
+router.post('/posts', verifyToken, postController.create_post);
+
+//GET post by id
+router.get('/posts/:id', verifyToken, postController.view_post)
 
 // GET all posts
-// router.get('/blog', blogController.blog)
+router.get('/posts', postController.all_posts);
+
+// POST new comment to existing post
+router.post('/posts/:id/comments', verifyToken, postController.add_comment)
 
 module.exports = router
