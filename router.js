@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyToken = require('./middlewares/authMiddleware');
 
 const userController = require('./controllers/userController');
+const postController = require('./controllers/postController')
 
 
         //**** USER ROUTES ****//
@@ -27,7 +28,10 @@ router.post('/posts', verifyToken, postController.create_post);
 router.get('/posts/:id', verifyToken, postController.view_post)
 
 // GET all posts
-router.get('/posts', postController.all_posts);
+router.get('/posts', verifyToken, postController.all_posts);
+
+//GET posts by author
+router.get('/posts/author', verifyToken, postController.user_posts);
 
 // POST new comment to existing post
 router.post('/posts/:id/comments', verifyToken, postController.add_comment)

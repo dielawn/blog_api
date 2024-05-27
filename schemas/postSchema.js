@@ -5,8 +5,8 @@ const postSchema = new Schema({
     title: { type: String },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
-})
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+}, { timestamps: true })
 
 const Post = mongoose.model('Post', postSchema, 'post');
 
