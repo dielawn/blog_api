@@ -1,13 +1,11 @@
 const Post = require('../schemas/postSchema')
 const User = require('../schemas/userSchema')
 
-
 exports.create_post = async (req, res) => {
     
     try {
-        const {title, content} = req.body;
-        const author = req.user._id;
-
+        const {title, author, content} = req.body;
+        
         const newPost = new Post({ title, author, content });
         await newPost.save();
         res.status(201).json({ message: 'Posted successfully', post: newPost })
@@ -120,6 +118,21 @@ exports.remove_post = async (req, res) => {
         res.status(500).json({ message: `Server error: ${error.message}` })
     }
 };
+
+exports.posts_by_id = async (req, res) => {
+    try {
+        const { postIds } = req.body;
+        const posts = await Post.find({ _id: { $in: postIds } }).populate('author');
+
+        if (posts.length > 0) {
+            res.status(200).json({ posts });
+        } else {
+            res.status(400).json({ message: 'No posts found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: `Server Error: ${error.message}`})
+    }
+}
 
 
 

@@ -34,6 +34,9 @@ router.get('/posts', verifyToken, postController.all_posts);
 router.get('/posts/author', verifyToken, postController.user_posts);
 
 // POST new comment to existing post
-router.post('/posts/:id/comments', verifyToken, postController.add_comment)
+router.post('/posts/:id/comments', verifyToken, postController.add_comment);
+
+// Fetch user posts by id
+router.post('/posts/batch', verifyToken, postController.posts_by_id);
 
 module.exports = router
