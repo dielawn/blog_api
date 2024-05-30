@@ -39,4 +39,7 @@ router.post('/posts/:id/comments', verifyToken, postController.add_comment);
 // Fetch user posts by id
 router.post('/posts/batch', verifyToken, postController.posts_by_id);
 
+// Update Push new post to user.posts array
+router.post('/user/posts', verifyToken, userController.push_user_post);
+
 module.exports = router

@@ -70,8 +70,10 @@ exports.user = async (req, res) => {
 
 exports.push_user_post = async (req, res) => {
     try {
-        const userId = req.user._id;
-        const postId = req.body.post;
+        
+        const userId = req.user.id;
+        const postId = req.body.postId;
+        console.log(`UserId: ${userId}, PostId: ${postId}`)
 
         const user = await User.findById(userId);
 
