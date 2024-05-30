@@ -1,7 +1,38 @@
 const User = require('../schemas/userSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Post = require('../schemas/postSchema');
 require('dotenv').config();
+
+
+const remove_post = async (req, res) => {
+    try {
+
+        const postId = req.body;
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(400).json({ message: 'Post not found' });
+        }
+        await Post.findByIdAndDelete(postId)       
+        
+        const userId = req.user._id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+        // mongoDB, IDs are stored as ObjectId, compare as strings
+        user.posts = user.posts.filter(id => id.toString() !== postId.toString());
+
+        await user.save();
+
+        res.status(200).json({ message: 'Cleaned up null posts' });
+    } catch (error) {
+        res.status(500).json({ message: `Error cleaning up null posts: ${error.message}` });
+    }
+};
+
+
+
 
 exports.home = (req, res) => {
     if (req.user) {
@@ -74,6 +105,15 @@ exports.push_user_post = async (req, res) => {
         const userId = req.user.id;
         const postId = req.body.postId;
         console.log(`UserId: ${userId}, PostId: ${postId}`)
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            return res.status(400).json({ message: 'Invalid post ID' });
+        }
+
+        const post = await Post.findById(postId)
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
 
         const user = await User.findById(userId);
 
