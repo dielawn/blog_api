@@ -5,7 +5,7 @@ const Post = require('../schemas/postSchema');
 require('dotenv').config();
 
 
-const remove_post = async (req, res) => {
+exports.remove_post = async (req, res) => {
     try {
 
         const postId = req.body;
@@ -25,7 +25,7 @@ const remove_post = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ message: 'Cleaned up null posts' });
+        res.status(200).json({ message: `Removed post id: ${postId}` });
     } catch (error) {
         res.status(500).json({ message: `Error cleaning up null posts: ${error.message}` });
     }
