@@ -46,7 +46,8 @@ exports.all_posts = async (req, res) => {
 exports.update_post = async (req, res) => {
     try {
         const {title, content} = req.body; 
-        const author = req.user._id;
+        const author = req.user.id;
+        console.log(title, author)
 
         const post = await Post.findById(req.params.id);
 
@@ -72,7 +73,7 @@ exports.update_post = async (req, res) => {
 exports.add_comment = async (req, res) => {
     try {
         const { content } = req.body;
-        const author = req.user._id;
+        const author = req.user.id;
 
         const parentPost = await Post.findById(req.params.id)
 
