@@ -96,15 +96,16 @@ exports.delete_post = async (req, res) => {
     
     try {        
         const postId = req.params.id;
-        const userId = req.user._id;
+        const userId = req.user.id;
 
         // Remove post from Post collection
         const post = await Post.findByIdAndDelete(postId);
         if (!post) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).json({ message: 'Post not found or was it?' });
         }
 
         // Remove post reference from User
+        console.log(userId)
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });

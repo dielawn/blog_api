@@ -41,7 +41,7 @@ router.put('/posts/:id', verifyToken, postController.update_post);
 router.post('/posts/:id/comments', verifyToken, postController.add_comment);
 
 // DELETE post by id
-router.delete('/posts/:id', verifyToken, postController.delete_post);
+router.delete('/delete/:id', verifyToken, postController.delete_post);
 
 
 
