@@ -121,6 +121,8 @@ exports.delete_post = async (req, res) => {
 };
 
 
+
+
 // exports.posts_by_id = async (req, res) => {
 //     try {
 //         const post = await Post.findById(req.params.id);
